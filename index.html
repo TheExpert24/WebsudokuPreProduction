@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websudoku</title>
+    <meta name="description" content="Websudoku is an interactive sudoku single and multiplayer that helps develop your skills and make you a better sudoku player while entertaining people. This is a great alternative to shouting at other people on social media; instead, you can shout at numbers while playing sudoku or multiplayer sudoku.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="image.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+
+
+</head>
+<body>
+    
+
+    <div class="app-container">
+        <!-- Top right sign up button -->
+        <div class="top-right-signup">
+            <div class="signup-dropdown">
+                <button id="account-btn" class="signup-button">Sign up</button>
+                <div class="user-avatar" id="user-avatar" style="display: none;"></div>
+                <div class="dropdown-content" id="account-dropdown-content">
+                    <a href="#" id="connect-google">Sign in with Google</a>
+                    <a href="#" id="sign-out">Sign Out</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div id="notification-box" style="
+                width: 100%;
+                padding: 16px;
+                font-size: 1rem;
+                box-sizing: border-box;
+                min-height: 24px;
+                opacity: 0.95;
+                transition: opacity 0.3s;
+                text-align: center;
+            "></div>
+        <div id="player-identity" style="
+            width: 100%;
+            padding: 16px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-sizing: border-box;
+            text-align: center;
+        "></div>
+
+        <div class="main-frame" style="padding: 16px; position: relative;">
+            <!-- Add the win overlay -->
+            <div id="win-overlay" class="win-overlay" style="display: none;">
+                <div class="win-content">
+                    <h2 id="win-title">Congratulations!</h2>
+                    <p id="win-message">You solved the puzzle!</p>
+                    <div id="win-timer">Time: 00:00</div>
+                    <!-- The button below will show for both single and multiplayer. If you want multiplayer-specific logic, handle it in JS. -->
+                    <button onclick="location.reload()" class="chat-toggle-btn" style="margin-top:20px;">Play Again</button>
+                </div>
+            </div>
+            
+            <div class="sudoku-grid">
+                <!-- 3x3 subgrids -->
+                <div class="subgrid" data-subgrid="0,0">
+                    <input type="text" class="cell" data-row="0" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="0" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="0" data-col="2" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="2" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="2" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="0,1">
+                    <input type="text" class="cell" data-row="0" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="0" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="0" data-col="5" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="5" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="5" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="0,2">
+                    <input type="text" class="cell" data-row="0" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="0" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="0" data-col="8" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="1" data-col="8" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="2" data-col="8" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="1,0">
+                    <input type="text" class="cell" data-row="3" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="3" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="3" data-col="2" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="2" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="2" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="1,1">
+                    <input type="text" class="cell" data-row="3" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="3" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="3" data-col="5" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="5" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="5" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="1,2">
+                    <input type="text" class="cell" data-row="3" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="3" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="3" data-col="8" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="4" data-col="8" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="5" data-col="8" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="2,0">
+                    <input type="text" class="cell" data-row="6" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="6" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="6" data-col="2" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="2" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="0" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="1" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="2" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="2,1">
+                    <input type="text" class="cell" data-row="6" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="6" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="6" data-col="5" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="5" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="3" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="4" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="5" maxlength="1">
+                </div>
+                <div class="subgrid" data-subgrid="2,2">
+                    <input type="text" class="cell" data-row="6" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="6" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="6" data-col="8" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="7" data-col="8" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="6" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="7" maxlength="1">
+                    <input type="text" class="cell" data-row="8" data-col="8" maxlength="1">
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-frame">
+            <div class="mode-frame">
+                <label class="control-label">Mode:</label>
+                <select id="mode-select" class="control-select">
+                    <option value="single">Single Player</option>
+                    <option value="multiplayer">Multiplayer</option>
+                </select>
+            </div>
+            
+            <div class="diff-frame">
+                <label class="control-label">Difficulty:</label>
+                <select id="difficulty-select" class="control-select">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                    <option value="Stupidly Hard">Stupidly Hard</option>
+                    <option value="Impossibly Hard">Impossibly Hard</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="timer-label" id="timer">Time: 00:00</div>
+        <div class="mistake-label" id="mistakes">Mistakes: 0/3</div>
+        <!--
+        <div class="spotify-frame">
+            <div class="soundwave-dropdown">
+                <button id="soundwave-btn" class="soundwave-button">Soundwave Options</button>
+                <div class="dropdown-content" id="dropdown-content">
+                    <a href="#" id="connect-spotify">Connect to Spotify</a>
+                    <a href="#" id="play-soundwaves">Play Soundwaves</a>
+                </div>
+            </div>
+            <div class="song-label" id="song-info">No song playing</div>
+        </div> -->
+                <button class="chat-toggle-btn hidden" id="chat-toggle-main">
+                    Open chat
+                    <span class="unread-badge" id="chat-unread-badge" style="display:none;">0</span>
+                </button>
+
+        <!--<canvas id="wave-canvas" class="wave-canvas" width="400" height="80"></canvas>-->
+        </div>
+        
+        
+        <div class="chat-sidebar hidden" id="chat-sidebar">
+            <div class="chat-header">
+                <h3>Enkryptonite - Developed by SafeComms Incorporated</h3>
+                <button class="chat-toggle" id="chat-toggle">×</button>
+            </div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Type a message..." maxlength="200">
+                <button id="chat-send">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js');
+  });
+}
+</script>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('input.cell').forEach(function(input) {
+            input.setAttribute('inputmode', 'numeric');
+            input.setAttribute('pattern', '[1-9]');
+        });
+    });
+</script>
+</html>
